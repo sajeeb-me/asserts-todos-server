@@ -41,6 +41,7 @@ async function run() {
             const updatedTodo = await todoCollection.updateOne(filter, updateDoc);
             res.send(updatedTodo)
         })
+
         app.patch('/todo/update/:id', async (req, res) => {
             const id = req.params.id;
             const filter = { _id: ObjectId(id) };
