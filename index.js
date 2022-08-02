@@ -28,6 +28,20 @@ async function run() {
             res.send(todo)
         })
 
+        app.patch('/todo/:id', async (req, res) => {
+            const id = req.params.id;
+            const filter = { _id: ObjectId(id) };
+            const time = req.body.time;
+            const updateDoc = {
+                $set: {
+                    isCompleted: true,
+                    completedTime: time,
+                }
+            }
+            const updatedTodo = await todoCollection.updateOne(filter, updateDoc);
+            res.send(updatedTodo)
+        })
+
         app.delete('/todo/:id', async (req, res) => {
             const id = req.params.id;
             const filter = { _id: ObjectId(id) };
