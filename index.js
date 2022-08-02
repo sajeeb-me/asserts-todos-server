@@ -17,6 +17,11 @@ async function run() {
         await client.connect();
         const todoCollection = client.db("to-do-list").collection("todos");
 
+        app.get('/todo', async (req, res) => {
+            const todo = await todoCollection.find().toArray();
+            res.send(todo)
+        })
+
         app.post('/todo', async (req, res) => {
             const body = req.body;
             const todo = await todoCollection.insertOne(body);
